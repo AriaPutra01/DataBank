@@ -15,16 +15,17 @@ class Rekening extends Model
      * @var array
      */
     protected $fillable = [
-        'nama',
         'bank',
         'status',
+        'nama',
+        'web',
         'supplier',
         'cabang',
         'no_rek',
         'nama_ibu',
-        'no_hp',
         'email',
         'password',
+        'no_hp',
         'user_ib',
         'pin_ib',
         'kode_mb',
@@ -36,20 +37,18 @@ class Rekening extends Model
         'jenis_atm',
         'no_kartu_atm',
         'cvv',
-        'valid_simcard',
+        'masa_berlaku_atm',
         'user_my_bca',
         'password_my_bca',
         'pin_transaksi',
+        'tanggal_terima',
         'keterangan',
-        'tanggal_mulai',
-        'tanggal_akhir',
         'coorporate_id',
         'coorporate',
         'id_coop',
-        'masa_berlaku_atm',
         'foto_ktp',
         'foto_kartu_atm',
-        'foto_kartu_kk',
+        'foto_token',
         'foto_buku_tabungan'
     ];
 }

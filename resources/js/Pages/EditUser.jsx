@@ -14,6 +14,8 @@ export default function EditUser({ details, attributes }) {
 	const DataRekening = attributes.DataRekening;
 	const MyBCA = attributes.MyBCA;
 	const Bisnis = attributes.Bisnis;
+	const nonFileBisnis = Bisnis.filter((data) => data.type !== "file");
+	const FileBisnis = Bisnis.filter((data) => data.type === "file");
 
 	const handleChange = (e) => {
 		const { name, type } = e.target;
@@ -47,30 +49,29 @@ export default function EditUser({ details, attributes }) {
 	};
 
 	const renderInput = (attribute, index) => {
-		const inputClass = attribute.type === "file" ? "col-span-2" : "col-span-1";
 		switch (attribute.type) {
 			case "select":
 				return (
-					<div key={index} className={`mb-4 ${inputClass}`}>
+					<div key={index} className={`mb-4 col-span 3`}>
 						<InputLabel htmlFor={attribute.data} value={attribute.header} />
 						<SelectInput
 							id={attribute.data}
 							name={attribute.data}
 							value={data[attribute.data]}
 							onChange={handleChange}>
-							<option value=''>Pilih {attribute.header}</option>
+							<option value="">Pilih {attribute.header}</option>
 							{attribute.options.map((option, index) => (
 								<SelectInput.Option key={index} value={option}>
 									{option}
 								</SelectInput.Option>
 							))}
 						</SelectInput>
-						<InputError message={errors[attribute.data]} className='mt-2' />
+						<InputError message={errors[attribute.data]} className="mt-2" />
 					</div>
 				);
 			case "file":
 				return (
-					<div key={index} className={`relative mb-4 ${inputClass}`}>
+					<div key={index} className={`relative mb-4 sm:col-span-2`}>
 						<InputLabel
 							className={`${
 								!data[attribute.data] && "dark:bg-transparent"
@@ -81,8 +82,8 @@ export default function EditUser({ details, attributes }) {
 						{data[`${attribute.data}_preview`] && (
 							<img
 								src={data[`${attribute.data}_preview`]}
-								alt='Preview'
-								className='object-cover sm:w-full rounded-md p-2 bg-gray-50 dark:bg-gray-900'
+								alt="Preview"
+								className="object-cover sm:w-full rounded-md p-2 bg-gray-50 dark:bg-gray-900"
 							/>
 						)}
 						{data[attribute.data] && (
@@ -92,22 +93,24 @@ export default function EditUser({ details, attributes }) {
 									data[`${attribute.data}_preview`]
 								}
 								alt={data[attribute.data].name}
-								className='object-cover sm:w-full rounded-md p-2 bg-gray-50 dark:bg-gray-900'
+								className="object-cover sm:w-full rounded-md p-2 bg-gray-50 dark:bg-gray-900"
 							/>
 						)}
 						<TextInput
 							id={attribute.data}
-							type='file'
+							type="file"
 							name={attribute.data}
 							onChange={handleChange}
 							className={`${!data[attribute.data] && "mt-[2.5rem]"}`}
 						/>
-						<InputError message={errors[attribute.data]} className='mt-2' />
+						<InputError message={errors[attribute.data]} className="mt-2" />
 					</div>
 				);
 			default:
 				return (
-					<div key={index} className={`mb-4 ${inputClass}`}>
+					<div
+						key={index}
+						className={`mb-4 col-span 3`}>
 						<InputLabel htmlFor={attribute.data} value={attribute.header} />
 						<TextInput
 							id={attribute.data}
@@ -117,7 +120,7 @@ export default function EditUser({ details, attributes }) {
 							onChange={handleChange}
 							placeholder={attribute.header}
 						/>
-						<InputError message={errors[attribute.data]} className='mt-2' />
+						<InputError message={errors[attribute.data]} className="mt-2" />
 					</div>
 				);
 		}
@@ -126,41 +129,46 @@ export default function EditUser({ details, attributes }) {
 	return (
 		<AuthenticatedLayout
 			header={
-				<h2 className='font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight'>
+				<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
 					Edit Data "{details.nama}"
 				</h2>
 			}>
-			<Head title='Edit Data User' />
+			<Head title="Edit Data User" />
 
-			<div className='max-w-7xl mx-auto sm:px-6 lg:px-8 sm:my-[1rem]'>
-				<div className='bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg'>
-					<div className='p-6 text-gray-900 dark:text-gray-100'>
-						<form onSubmit={handleSubmit} encType='multipart/form-data'>
-							<h2 className='mb-6 font-bold text-2xl text-gray-800 dark:text-gray-200 leading-tight'>
+			<div className="max-w-7xl mx-auto sm:px-6 lg:px-8 sm:my-[1rem]">
+				<div className="bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg">
+					<div className="p-6 text-gray-900 dark:text-gray-100">
+						<form onSubmit={handleSubmit} encType="multipart/form-data">
+							<h2 className="mb-6 font-bold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
 								Data Rekening
 							</h2>
-							<div className='sm:grid grid-cols-2 gap-4'>
+							<div className="sm:grid grid-cols-2 gap-4">
 								{DataRekening.map((attribute, index) =>
 									renderInput(attribute, index)
 								)}
 							</div>
-							<h2 className='mb-6 font-bold text-2xl text-gray-800 dark:text-gray-200 leading-tight'>
+							<h2 className="mb-6 font-bold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
 								My BCA
 							</h2>
-							<div className='sm:grid grid-cols-2 gap-4'>
+							<div className="sm:grid grid-cols-2 gap-4">
 								{MyBCA.map((attribute, index) => renderInput(attribute, index))}
 							</div>
-							<h2 className='mb-6 font-bold text-2xl text-gray-800 dark:text-gray-200 leading-tight'>
+							<h2 className="mb-6 font-bold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
 								Bisnis
 							</h2>
-							<div className='sm:grid grid-cols-4 gap-4'>
-								{Bisnis.map((attribute, index) =>
+							<div className="sm:grid grid-cols-3 gap-4">
+								{nonFileBisnis.map((attribute, index) =>
 									renderInput(attribute, index)
 								)}
 							</div>
-							<div className='flex pt-4 mt-4 gap-2 border-t-2 border-slate-600'>
-								<PrimaryButton type='submit'>Simpan</PrimaryButton>
-								<Link href={route("rekening.index")} as='button' type='button'>
+							<div className="sm:grid grid-cols-4 gap-4">
+								{FileBisnis.map((attribute, index) =>
+									renderInput(attribute, index)
+								)}
+							</div>
+							<div className="flex pt-4 mt-4 gap-2 border-t-2 border-slate-600">
+								<PrimaryButton type="submit">Simpan</PrimaryButton>
+								<Link href={route("rekening.index")} as="button" type="button">
 									<SecondaryButton>Batal</SecondaryButton>
 								</Link>
 							</div>

@@ -11,16 +11,17 @@ class RekeningController extends Controller
   // Global Variabel
   protected $attributes = [
     'DataRekening' => [
-      ['data' => 'nama', 'type' => 'text', 'header' => 'Nama'],
       ['data' => 'bank', 'type' => 'select', 'options' => ['BCA', 'Mandiri', 'BNI', 'BRI', 'CIMB', 'JAGO', 'Jenius'], 'header' => 'Bank'],
       ['data' => 'status', 'type' => 'select', 'options' => ['Active', 'Stock', 'Sakit', 'Closed'], 'header' => 'Status'],
+      ['data' => 'nama', 'type' => 'text', 'header' => 'Nama'],
+      ['data' => 'web', 'type' => 'text', 'header' => 'Web'],
       ['data' => 'supplier', 'type' => 'text', 'header' => 'Supplier'],
       ['data' => 'cabang', 'type' => 'text', 'header' => 'Cabang'],
       ['data' => 'no_rek', 'type' => 'text', 'header' => 'No. Rekening'],
       ['data' => 'nama_ibu', 'type' => 'text', 'header' => 'Nama Ibu'],
-      ['data' => 'no_hp', 'type' => 'number', 'header' => 'No. Hp'],
       ['data' => 'email', 'type' => 'email', 'header' => 'Email'],
       ['data' => 'password', 'type' => 'text', 'header' => 'Password'],
+      ['data' => 'no_hp', 'type' => 'number', 'header' => 'No. Hp'],
       ['data' => 'user_ib', 'type' => 'text', 'header' => 'User Internet Banking'],
       ['data' => 'pin_ib', 'type' => 'text', 'header' => 'Pin Internet Banking'],
       ['data' => 'kode_mb', 'type' => 'text', 'header' => 'Kode Akses Mobile Banking'],
@@ -32,24 +33,22 @@ class RekeningController extends Controller
       ['data' => 'jenis_atm', 'type' => 'text', 'header' => 'Jenis ATM'],
       ['data' => 'no_kartu_atm', 'type' => 'text', 'header' => 'No. Kartu Atm'],
       ['data' => 'cvv', 'type' => 'text', 'header' => 'CVV'],
-      ['data' => 'valid_simcard', 'type' => 'date', 'header' => 'Valid SIM CARD']
+      ['data' => 'masa_berlaku_atm', 'type' => 'date', 'header' => 'Masa Berlaku ATM'],
     ],
     'MyBCA' => [
       ['data' => 'user_my_bca', 'type' => 'text', 'header' => 'User My BCA'],
       ['data' => 'password_my_bca', 'type' => 'text', 'header' => 'Password My BCA'],
       ['data' => 'pin_transaksi', 'type' => 'text', 'header' => 'Pin Transaksi'],
+      ['data' => 'tanggal_terima', 'type' => 'date', 'header' => 'Tanggal Terima'],
       ['data' => 'keterangan', 'type' => 'text', 'header' => 'Keterangan'],
-      ['data' => 'tanggal_mulai', 'type' => 'date', 'header' => 'Tanggal Mulai'],
-      ['data' => 'tanggal_akhir', 'type' => 'date', 'header' => 'Tanggal Akhir'],
     ],
     'Bisnis' => [
       ['data' => 'coorporate_id', 'type' => 'text', 'header' => 'Coorporate ID'],
       ['data' => 'coorporate', 'type' => 'text', 'header' => 'Coorporate'],
       ['data' => 'id_coop', 'type' => 'text', 'header' => 'ID'],
-      ['data' => 'masa_berlaku_atm', 'type' => 'date', 'header' => 'Masa Berlaku ATM'],
       ['data' => 'foto_ktp', 'type' => 'file', 'header' => 'Foto KTP'],
       ['data' => 'foto_kartu_atm', 'type' => 'file', 'header' => 'Foto Kartu ATM'],
-      ['data' => 'foto_kartu_kk', 'type' => 'file', 'header' => 'Foto kartu KK'],
+      ['data' => 'foto_token', 'type' => 'file', 'header' => 'Foto Token'],
       ['data' => 'foto_buku_tabungan', 'type' => 'file', 'header' => 'Foto Buku Tabungan']
     ],
   ];

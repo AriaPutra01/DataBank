@@ -20,11 +20,16 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
+    $bankList = ['BCA', 'Mandiri', 'BNI', 'BRI', 'CIMB', 'JAGO', 'Jenius'];
+    foreach ($bankList as $bank) {
+        $rekeningData[$bank] = Rekening::where('bank', $bank)->get();
+    }
     $totalRekening = Rekening::count();
     $totalActive = Rekening::where('status', 'Active')->count();
     return Inertia::render('Dashboard', [
         'totalRekening' => $totalRekening,
         'totalActive' => $totalActive,
+        'bank' => $rekeningData
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 

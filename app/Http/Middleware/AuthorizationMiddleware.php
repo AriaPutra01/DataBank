@@ -18,7 +18,7 @@ class AuthorizationMiddleware
                 }
                 return $next($request);
             } elseif ($request->user()->usertype === 'user') {
-                if ($request->is('rekening')) {
+                if ($request->is('rekening') || $request->is('rekening/*')) {
                     return $next($request);
                 }
             }
