@@ -16,13 +16,13 @@ export default function Authenticated({ header, children }) {
 		useState(false);
 
 	return (
-		<div className="min-h-screen bg-gray-100 dark:bg-gray-900 transition-all">
-			<nav className="fixed top-0 left-0 right-0 z-20 bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 transition-all">
+		<div className="min-h-screen bg-slate-100 dark:bg-slate-900 transition-all">
+			<nav className="fixed top-0 left-0 right-0 z-20 bg-white dark:bg-slate-800 border-b border-slate-100 dark:border-slate-700 transition-all">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="flex justify-between h-16">
 						<div className="flex">
 							<div className="shrink-0 flex items-center">
-								<MoneyIcon className="w-[1rem] text-gray-800 dark:text-gray-200" />
+								<MoneyIcon className="w-[1rem] text-slate-800 dark:text-slate-200" />
 							</div>
 
 							<div className="hidden space-x-8 lg:-my-px lg:ms-10 lg:flex">
@@ -80,7 +80,7 @@ export default function Authenticated({ header, children }) {
 										<span className="inline-flex rounded-md">
 											<button
 												type="button"
-												className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
+												className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-800 hover:text-slate-700 dark:hover:text-slate-300 focus:outline-none transition ease-in-out duration-150">
 												{user.name}
 
 												<ArrowDownIcon className="ms-2" />
@@ -114,7 +114,7 @@ export default function Authenticated({ header, children }) {
 										(previousState) => !previousState
 									)
 								}
-								className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400 transition duration-150 ease-in-out">
+								className="inline-flex items-center justify-center p-2 rounded-md text-slate-400 dark:text-slate-500 hover:text-slate-500 dark:hover:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 focus:outline-none focus:bg-slate-100 dark:focus:bg-slate-900 focus:text-slate-500 dark:focus:text-slate-400 transition duration-150 ease-in-out">
 								<BarIcon
 									className={
 										!showingNavigationDropdown ? "inline-flex" : "hidden"
@@ -133,7 +133,7 @@ export default function Authenticated({ header, children }) {
 				<div
 					className={
 						(showingNavigationDropdown ? "block" : "hidden") +
-						" lg:hidden border-b-2 bg-white dark:bg-gray-800"
+						" lg:hidden border-b-2 bg-white dark:bg-slate-800"
 					}>
 					<div className="pt-2 pb-3 space-y-1">
 						<ResponsiveNavLink
@@ -181,18 +181,18 @@ export default function Authenticated({ header, children }) {
 						</div>
 					)}
 
-					<div className="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
+					<div className="pt-4 pb-1 border-t border-slate-200 dark:border-slate-600">
 						<div className="px-4 flex justify-between">
 							<div>
-								<div className="font-medium text-base text-gray-800 dark:text-gray-200">
+								<div className="font-medium text-base text-slate-800 dark:text-slate-200">
 									{user.name}
 								</div>
-								<div className="font-medium text-sm text-gray-500">
+								<div className="font-medium text-sm text-slate-500">
 									{user.email}
 								</div>
 							</div>
 							<div>
-								<div className="uppercase font-medium text-base text-gray-100 dark:text-gray-300 bg-cyan-600 dark:bg-cyan-800 p-2 rounded-md">
+								<div className="uppercase font-medium text-base text-slate-100 dark:text-slate-300 bg-cyan-600 dark:bg-cyan-800 p-2 rounded-md">
 									{user.usertype}
 								</div>
 							</div>
@@ -214,11 +214,11 @@ export default function Authenticated({ header, children }) {
 			</nav>
 
 			{header && (
-				<header className="mt-[4rem] bg-white dark:bg-gray-800 transition-all shadow">
+				<header className="mt-[4rem] bg-white dark:bg-slate-800 transition-all shadow">
 					<div className="flex justify-between max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
 						<span>{header}</span>
 						<span className="hidden lg:block">
-							<span className="uppercase bg-gray-50 dark:bg-gray-800 text-black hover:text-white dark:text-white hover:bg-cyan-600 dark:hover:bg-cyan-800 transition-all font-bold p-2 rounded">
+							<span className="uppercase bg-slate-50 dark:bg-slate-800 text-black hover:text-white dark:text-white hover:bg-cyan-600 dark:hover:bg-cyan-800 transition-all font-bold p-2 rounded">
 								{user.usertype}
 							</span>
 						</span>

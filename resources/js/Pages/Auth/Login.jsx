@@ -98,7 +98,7 @@ export default function Login({ status: initialStatus, canResetPassword }) {
                                 setData("remember", e.target.checked)
                             }
                         />
-                        <span className="ms-2 text-sm text-gray-800 dark:text-gray-400 transition-all">
+                        <span className="ms-2 text-sm text-slate-800 dark:text-slate-400 transition-all">
                             Remember me
                         </span>
                     </label>
@@ -108,7 +108,7 @@ export default function Login({ status: initialStatus, canResetPassword }) {
                     {/* {canResetPassword && (
                         <Link
                             href={route("password.request")}
-                            className="underline text-sm text-gray-800 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+                            className="underline text-sm text-slate-800 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-800"
                         >
                             Forgot your password?
                         </Link>
@@ -129,14 +129,14 @@ export default function Login({ status: initialStatus, canResetPassword }) {
             </form>
 
             {showPendingModal && (
-                <div className="fixed inset-0 bg-gray-900 backdrop-blur-sm bg-opacity-50 overflow-y-auto h-full w-full">
+                <div className="fixed inset-0 bg-slate-900 backdrop-blur-sm bg-opacity-50 overflow-y-auto h-full w-full">
                     <div className="relative top-1/2 -translate-y-1/2 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
                         <div className="mt-3 text-center">
-                            <h3 className="text-lg leading-6 font-medium text-gray-900">
+                            <h3 className="text-lg leading-6 font-medium text-slate-900">
                                 Pendaftaran Dalam Proses
                             </h3>
                             <div className="mt-2 px-7 py-3">
-                                <p className="text-sm text-gray-500">
+                                <p className="text-sm text-slate-500">
                                     Permintaan registrasi Anda sedang diproses.
                                     Silakan tunggu persetujuan admin.
                                 </p>

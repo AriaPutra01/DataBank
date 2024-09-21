@@ -16,10 +16,9 @@ class RekeningController extends Controller
       ['data' => 'nama', 'type' => 'text', 'header' => 'Nama'],
       ['data' => 'web', 'type' => 'text', 'header' => 'Web'],
       ['data' => 'supplier', 'type' => 'text', 'header' => 'Supplier'],
-      ['data' => 'cabang', 'type' => 'text', 'header' => 'Cabang'],
       ['data' => 'no_rek', 'type' => 'text', 'header' => 'No. Rekening'],
       ['data' => 'nama_ibu', 'type' => 'text', 'header' => 'Nama Ibu'],
-      ['data' => 'email', 'type' => 'email', 'header' => 'Email'],
+      ['data' => 'email', 'type' => 'text', 'header' => 'Email'],
       ['data' => 'password', 'type' => 'text', 'header' => 'Password'],
       ['data' => 'no_hp', 'type' => 'number', 'header' => 'No. Hp'],
       ['data' => 'user_ib', 'type' => 'text', 'header' => 'User Internet Banking'],
@@ -34,13 +33,13 @@ class RekeningController extends Controller
       ['data' => 'no_kartu_atm', 'type' => 'text', 'header' => 'No. Kartu Atm'],
       ['data' => 'cvv', 'type' => 'text', 'header' => 'CVV'],
       ['data' => 'masa_berlaku_atm', 'type' => 'date', 'header' => 'Masa Berlaku ATM'],
+      ['data' => 'keterangan', 'type' => 'text', 'header' => 'Keterangan'],
     ],
     'MyBCA' => [
       ['data' => 'user_my_bca', 'type' => 'text', 'header' => 'User My BCA'],
       ['data' => 'password_my_bca', 'type' => 'text', 'header' => 'Password My BCA'],
       ['data' => 'pin_transaksi', 'type' => 'text', 'header' => 'Pin Transaksi'],
       ['data' => 'tanggal_terima', 'type' => 'date', 'header' => 'Tanggal Terima'],
-      ['data' => 'keterangan', 'type' => 'text', 'header' => 'Keterangan'],
     ],
     'Bisnis' => [
       ['data' => 'coorporate_id', 'type' => 'text', 'header' => 'Coorporate ID'],
@@ -94,7 +93,6 @@ class RekeningController extends Controller
       'jenis_atm' => 'nullable|string|max:255',
       'no_kartu_atm' => 'nullable|string|max:255',
       'cvv' => 'nullable|string|max:255',
-      'valid_simcard' => 'nullable|date',
       'user_my_bca' => 'nullable|string|max:255',
       'password_my_bca' => 'nullable|string|max:255',
       'pin_transaksi' => 'nullable|string|max:255',
@@ -150,7 +148,43 @@ class RekeningController extends Controller
 
   public function update(Request $request, Rekening $rekening)
   {
-    $data = $request->all();
+    $data = $request->validate([
+      'nama' => 'nullable|string|max:255',
+      'bank' => 'nullable|string|in:BCA,Mandiri,BNI,BRI,CIMB,JAGO,Jenius',
+      'status' => 'nullable|string|in:Active,Stock,Sakit,Closed',
+      'supplier' => 'nullable|string|max:255',
+      'cabang' => 'nullable|string|max:255',
+      'no_rek' => 'nullable|string|max:255',
+      'nama_ibu' => 'nullable|string|max:255',
+      'no_hp' => 'nullable|string|max:255',
+      'email' => 'nullable|email|max:255',
+      'password' => 'nullable|string|max:255',
+      'user_ib' => 'nullable|string|max:255',
+      'pin_ib' => 'nullable|string|max:255',
+      'kode_mb' => 'nullable|string|max:255',
+      'password_transaksi' => 'nullable|string|max:255',
+      'pin_mb' => 'nullable|string|max:255',
+      'pin_atm' => 'nullable|string|max:255',
+      'skn' => 'nullable|string|max:255',
+      'pin_skn' => 'nullable|string|max:255',
+      'jenis_atm' => 'nullable|string|max:255',
+      'no_kartu_atm' => 'nullable|string|max:255',
+      'cvv' => 'nullable|string|max:255',
+      'user_my_bca' => 'nullable|string|max:255',
+      'password_my_bca' => 'nullable|string|max:255',
+      'pin_transaksi' => 'nullable|string|max:255',
+      'keterangan' => 'nullable|string|max:255',
+      'tanggal_mulai' => 'nullable|date',
+      'tanggal_akhir' => 'nullable|date|after:tanggal_mulai',
+      'coorporate_id' => 'nullable|string|max:255',
+      'coorporate' => 'nullable|string|max:255',
+      'ID' => 'nullable|string|max:255',
+      'masa_berlaku_atm' => 'nullable|date',
+      'foto_ktp' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
+      'foto_kartu_atm' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
+      'foto_kartu_kk' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
+      'foto_buku_tabungan' => 'nullable|image|mimes:jpeg,jpg,png|max:2048'
+    ]);
 
     if ($request->hasFile('foto_ktp')) {
       if ($rekening->foto_ktp) {

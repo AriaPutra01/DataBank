@@ -9,7 +9,7 @@ export default function Welcome({ auth }) {
 				className="w-screen h-screen bg-center bg-cover"
 				style={{ backgroundImage: "url('/image/kurp2.jpg')" }}
 			/>
-			<div className="absolute flex flex-col justify-around sm:justify-between overflow-hidden z-10 top-0 left-0 right-0 bottom-0 selection:bg-[#0041ab] dark:bg-gray-800/50 bg-center bg-cover selection:text-white">
+			<div className="absolute flex flex-col justify-around sm:justify-between overflow-hidden z-10 top-0 left-0 right-0 bottom-0 selection:bg-[#0041ab] dark:bg-slate-800/50 bg-center bg-cover selection:text-white">
 				<header className="sm:mt-[2rem] flex justify-around items-center gap-2">
 					<div className="hidden lg:flex lg:justify-center">
 						<ReactIcon className="size-[3rem] text-blue-800 dark:text-blue-200" />
@@ -44,7 +44,7 @@ export default function Welcome({ auth }) {
 					<div>
 						<div class="mx-auto max-w-2xl">
 							<div class="hidden sm:mb-8 sm:flex sm:justify-center">
-								<div class="relative rounded-full px-3 py-1 text-sm leading-6 text-white ring-2 ring-gray-200 dark:ring-indigo-600 hover:ring-gray-100 dark:hover:ring-indigo-400">
+								<div class="relative rounded-full px-3 py-1 text-sm leading-6 text-white ring-2 ring-slate-200 dark:ring-indigo-600 hover:ring-slate-100 dark:hover:ring-indigo-400">
 									Solusi pengelolaan data yang cerdas untuk bisnis Anda.
 								</div>
 							</div>

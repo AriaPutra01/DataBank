@@ -45,21 +45,21 @@ export default function DataRekening({ rekenings, attributes }) {
 	const ActionButton = {
 		header: "Action",
 		cell: (field) => (
-			<td className="px-4 py-3">
+			<td className="px-4 py-3 absolute z-10 top-0 left-[.8rem]">
 				<button
 					onClick={() => handleButtonAction(field.id)}
-					className="relative inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
+					className="relative inline-flex items-center p-0.5 text-sm font-medium text-center text-slate-500 hover:text-slate-800 rounded-lg focus:outline-none dark:text-slate-400 dark:hover:text-slate-100"
 					type="button">
 					<DotsIcon />
 					<div
 						className={`${
 							isOpen === field.id ? "block" : "hidden"
-						} absolute left-[2rem] z-50 bg-white ring-2 rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600`}>
-						<ul className="flex py-1 text-sm text-gray-700 dark:text-gray-200">
+						} absolute left-[2rem] z-50 bg-white ring-2 rounded divide-y divide-slate-100 shadow dark:bg-slate-700 dark:divide-slate-600`}>
+						<ul className="flex py-1 text-sm text-slate-700 dark:text-slate-200">
 							<li>
 								<Link
 									onClick={() => handleButtonAction(field.id)}
-									className="border-e-2 h-full block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+									className="border-e-2 h-full block py-2 px-4 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white">
 									<CrossIcon className="size-[1rem]" />
 								</Link>
 							</li>
@@ -120,7 +120,7 @@ export default function DataRekening({ rekenings, attributes }) {
 	return (
 		<Authenticated
 			header={
-				<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+				<h2 className="font-semibold text-xl text-slate-800 dark:text-slate-200 leading-tight">
 					Data Rekening
 				</h2>
 			}>
@@ -139,7 +139,7 @@ export default function DataRekening({ rekenings, attributes }) {
 			/>
 
 			<div className="max-w-7xl mx-auto sm:px-6 lg:px-8 ">
-				<div className="sm:mt-6 bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg">
+				<div className="sm:mt-6 bg-white dark:bg-slate-800 shadow-sm sm:rounded-lg">
 					<Table
 						data={rekenings.data}
 						field={rekenings}

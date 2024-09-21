@@ -39,7 +39,7 @@ export default function MessageModal({ success, info, warning, error }) {
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95"
                         >
-                            <Dialog.Panel className="w-full flex flex-col items-center max-w-lg transform overflow-hidden rounded-2xl bg-white dark:bg-gray-800 p-6 text-left align-middle shadow-xl transition-all">
+                            <Dialog.Panel className="w-full flex flex-col items-center max-w-lg transform overflow-hidden rounded-2xl bg-white dark:bg-slate-800 p-6 text-left align-middle shadow-xl transition-all">
                                 {success && (
                                     <Dialog.Title className="text-7xl my-[1rem] size-[6rem] p-2 rounded-full text-green-600 bg-green-600/20 flex justify-center items-center">
                                         ✓
@@ -64,7 +64,7 @@ export default function MessageModal({ success, info, warning, error }) {
                                     </Dialog.Title>
                                 )}
 
-                                <p className="mt-[2rem] text-sm text-gray-500 dark:text-gray-400">
+                                <p className="mt-[2rem] text-sm text-slate-500 dark:text-slate-400">
                                     {success || info || warning || error}
                                 </p>
 

@@ -1,4 +1,4 @@
-import { useForm, Head, Link, usePage } from "@inertiajs/react";
+import { useForm, Head, Link } from "@inertiajs/react";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
@@ -9,6 +9,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
 export default function TambahDataUser({ attributes }) {
 	const { data, setData, post, errors, processing, reset } = useForm({});
+
 	const DataRekening = attributes.DataRekening;
 	const MyBCA = attributes.MyBCA;
 	const Bisnis = attributes.Bisnis;
@@ -71,7 +72,7 @@ export default function TambahDataUser({ attributes }) {
 						<InputLabel
 							className={`${
 								!data[attribute.data] && "dark:bg-transparent"
-							} absolute top-0 p-2 w-fit border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm`}
+							} absolute top-0 p-2 w-fit border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 dark:text-slate-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm`}
 							htmlFor={attribute.data}
 							value={attribute.header}
 						/>
@@ -79,14 +80,14 @@ export default function TambahDataUser({ attributes }) {
 							<img
 								src={data[`${attribute.data}_preview`]}
 								alt="Preview"
-								className="object-cover sm:w-full rounded-md p-2 bg-gray-50 dark:bg-gray-900"
+								className="object-cover sm:w-full p-2 bg-slate-50 dark:bg-slate-800 mt-[2rem]"
 							/>
 						)}
 						{data[attribute.data] && (
 							<img
 								src={`/storage/${data[attribute.data]}`}
 								alt={data[attribute.data].name}
-								className="object-cover sm:w-full rounded-md p-2 bg-gray-50 dark:bg-gray-900"
+								className="object-cover sm:w-full rounded-md p-2 bg-slate-50 dark:bg-slate-800"
 							/>
 						)}
 						<TextInput
@@ -94,14 +95,16 @@ export default function TambahDataUser({ attributes }) {
 							type="file"
 							name={attribute.data}
 							onChange={handleChange}
-							className={`${!data[attribute.data] && "mt-[2.5rem]"}`}
+							className={`${
+								!data[attribute.data] && "mt-[2.5rem]"
+							} bg-slate-50 dark:bg-slate-800`}
 						/>
 						<InputError message={errors[attribute.data]} className="mt-2" />
 					</div>
 				);
 			default:
 				return (
-					<div key={index} className={`mb-4 col-span-1`}>
+					<div key={index} className="mb-4 col-span-1">
 						<InputLabel htmlFor={attribute.data} value={attribute.header} />
 						<TextInput
 							id={attribute.data}
@@ -120,54 +123,60 @@ export default function TambahDataUser({ attributes }) {
 	return (
 		<AuthenticatedLayout
 			header={
-				<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+				<h2 className="font-semibold text-xl text-slate-800 dark:text-slate-200 leading-tight">
 					Tambah Data User
 				</h2>
 			}>
 			<Head title="Tambah Data User" />
 
 			<div className="max-w-7xl mx-auto sm:px-6 lg:px-8 sm:my-[1rem]">
-				<div className="bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg transition-all">
-					<div className="p-6 text-gray-900 dark:text-gray-100">
-						<form onSubmit={handleSubmit} encType="multipart/form-data">
-							<h2 className="mb-6 font-bold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
-								Data Rekening
-							</h2>
-							<div className="sm:grid grid-cols-2 gap-4">
-								{DataRekening.map((attribute, index) =>
-									renderInput(attribute, index)
-								)}
-							</div>
-							<h2 className="mb-6 font-bold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
-								My BCA
-							</h2>
-							<div className="sm:grid grid-cols-2 gap-4">
-								{MyBCA.map((attribute, index) => renderInput(attribute, index))}
-							</div>
-							<h2 className="mb-6 font-bold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
-								Bisnis
-							</h2>
-							<div className="sm:grid grid-cols-3 gap-4">
-								{nonFileBisnis.map((attribute, index) =>
-									renderInput(attribute, index)
-								)}
-							</div>
-							<div className="sm:grid grid-cols-4 gap-4">
-								{FileBisnis.map((attribute, index) =>
-									renderInput(attribute, index)
-								)}
-							</div>
-							<div className="flex pt-4 mt-4 gap-2 border-t-2 border-slate-600">
-								<PrimaryButton disabled={processing} type="submit">
-									Simpan
-								</PrimaryButton>
-								<Link href={route("rekening.index")} as="button" type="button">
-									<SecondaryButton>Batal</SecondaryButton>
-								</Link>
-							</div>
-						</form>
+				<form
+					className="flex flex-col gap-4"
+					onSubmit={handleSubmit}
+					encType="multipart/form-data">
+					<div className="p-6 text-slate-900 dark:text-slate-100 bg-white dark:bg-slate-800 shadow-sm sm:rounded-lg transition-all">
+						<h2 className="mb-6 font-bold text-2xl text-slate-800 dark:text-slate-200 leading-tight">
+							Data Rekening
+						</h2>
+						<div className="sm:grid grid-cols-2 gap-4">
+							{DataRekening.map((attribute, index) =>
+								renderInput(attribute, index)
+							)}
+						</div>
+						<h2 className="mb-6 font-bold text-2xl text-slate-800 dark:text-slate-200 leading-tight">
+							My BCA
+						</h2>
+						<div className="sm:grid grid-cols-2 gap-4">
+							{MyBCA.map((attribute, index) => renderInput(attribute, index))}
+						</div>
+						<h2 className="mb-6 font-bold text-2xl text-slate-800 dark:text-slate-200 leading-tight">
+							Bisnis
+						</h2>
+						<div className="sm:grid grid-cols-3 gap-4">
+							{nonFileBisnis.map((attribute, index) =>
+								renderInput(attribute, index)
+							)}
+						</div>
 					</div>
-				</div>
+					<div className="p-6 text-slate-900 dark:text-slate-100 transition-all">
+						<h2 className="mb-6 font-bold text-2xl text-slate-800 dark:text-slate-200 leading-tight">
+							Foto
+						</h2>
+						<div className="sm:grid grid-cols-4 gap-4">
+							{FileBisnis.map((attribute, index) =>
+								renderInput(attribute, index)
+							)}
+						</div>
+						<div className="flex pt-4 mt-4 gap-2 border-t-2 border-slate-600">
+							<PrimaryButton disabled={processing} type="submit">
+								Simpan
+							</PrimaryButton>
+							<Link href={route("rekening.index")} as="button" type="button">
+								<SecondaryButton>Batal</SecondaryButton>
+							</Link>
+						</div>
+					</div>
+				</form>
 			</div>
 		</AuthenticatedLayout>
 	);

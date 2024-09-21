@@ -25,11 +25,11 @@ export default function Dashboard({ totalRekening, totalActive, bank }) {
 
 			<div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
 				<div className="text-white grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-4 mt-4">
-					<div className="flex flex-row justify-between bg-gray-600 dark:bg-gray-800 p-6 mx-4 sm:mx-0 rounded-lg shadow-lg transition-all">
-						<h3 className="text-lg font-semibold bg-gray-700 px-2 shadow-md rounded-md">
+					<div className="flex flex-row justify-between bg-slate-600 dark:bg-slate-800 p-6 mx-4 sm:mx-0 rounded-lg shadow-lg transition-all">
+						<h3 className="text-lg font-semibold bg-slate-700 px-2 shadow-md rounded-md">
 							Total Rekening
 						</h3>
-						<p className="text-2xl font-bold bg-gray-700 px-2 shadow-md rounded-md">
+						<p className="text-2xl font-bold bg-slate-700 px-2 shadow-md rounded-md">
 							{totalRekening}
 						</p>
 					</div>

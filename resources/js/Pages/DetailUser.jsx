@@ -19,13 +19,15 @@ export default function DetailUser({ details, attributes }) {
 					<div
 						key={index}
 						className="col-span-2 relative text-black dark:text-slate-100 ">
-						<span className="absolute rounded-md p-2 bg-gray-50 dark:bg-gray-700">
-							{attribute.header}
+						<span className="absolute rounded-md p-2 bg-slate-50 dark:bg-slate-700">
+							{details[attribute.data]
+								? attribute.header
+								: "Tidak ada" + " " + attribute.header}
 						</span>
 						<img
 							key={index}
 							src={`/storage/${details[attribute.data]}`}
-							className="sm:w-full rounded-md p-2 bg-gray-50 dark:bg-gray-700"
+							className="sm:w-full rounded-md p-2 bg-slate-50 dark:bg-slate-700"
 							alt={attribute.header}
 						/>
 					</div>
@@ -34,12 +36,9 @@ export default function DetailUser({ details, attributes }) {
 				return (
 					<div
 						key={index}
-						className={`col-span-2 bg-gray-50 dark:bg-gray-700 p-2 text-black dark:text-slate-100 grid grid-cols-4 gap-10 rounded-md `}>
-						<span className="col-span-2 whitespace-nowrap">
-							{attribute.header}
-						</span>
-						<div className="col-span-2 w-full">
-							:{" "}
+						className={`col-span-3 bg-slate-50 dark:bg-slate-700 p-2 text-black dark:text-slate-100 grid grid-cols-4 gap-10 rounded-md `}>
+						<span className="col-span-1">{attribute.header}</span>
+						<div className="col-span-2  w-full">
 							<span className="font-bold ms-2">
 								{formatDateToIndonesia(details[attribute.data])}
 							</span>
@@ -50,13 +49,10 @@ export default function DetailUser({ details, attributes }) {
 				return (
 					<div
 						key={index}
-						className={`col-span-2 bg-gray-50 dark:bg-gray-700 p-2 text-black dark:text-slate-100 grid grid-cols-4 gap-10 rounded-md `}>
-						<span className="col-span-2 whitespace-nowrap">
-							{attribute.header}
-						</span>
-						<div className="col-span-2 w-full">
-							:{" "}
-							<span className="font-bold ms-2">{details[attribute.data]}</span>
+						className={`col-span-3 bg-slate-50 dark:bg-slate-700 p-2 text-black dark:text-slate-100 grid grid-cols-4 gap-10 rounded-md `}>
+						<span className="col-span-1">{attribute.header}</span>
+						<div className="col-span-2 overflow-auto font-bold ms-2">
+							{details[attribute.data]}
 						</div>
 					</div>
 				);
@@ -66,8 +62,11 @@ export default function DetailUser({ details, attributes }) {
 	return (
 		<Authenticated
 			header={
-				<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-					Detail Data "{details.nama}"
+				<h2 className=" flex flex-col font-semibold text-xl text-slate-800 dark:text-slate-200 leading-tight">
+					<span>Detail Data</span>
+					<span className="text-nowrap max-w-[20rem] overflow-ellipsis overflow-hidden">
+						{details.nama}
+					</span>
 				</h2>
 			}>
 			<Head title="Detail User" />
@@ -81,7 +80,7 @@ export default function DetailUser({ details, attributes }) {
 				<div className="text-black dark:text-white text-2xl font-bold p-2 rounded-md">
 					<h1>Data Rekening</h1>
 				</div>
-				<div className="grid sm:grid-cols-4 gap-2 bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg p-4 mb-8">
+				<div className="grid sm:grid-cols-6 gap-2 bg-white dark:bg-slate-800 shadow-sm sm:rounded-lg p-4 mb-8">
 					{DataRekening.map((attribute, index) =>
 						RenderColumn(attribute, index)
 					)}
@@ -89,18 +88,21 @@ export default function DetailUser({ details, attributes }) {
 				<div className="text-black dark:text-white text-2xl font-bold p-2 rounded-md">
 					<h1>My BCA</h1>
 				</div>
-				<div className="grid sm:grid-cols-4 gap-2 bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg p-4 mb-8">
+				<div className="grid sm:grid-cols-6 gap-2 bg-white dark:bg-slate-800 shadow-sm sm:rounded-lg p-4 mb-8">
 					{MyBCA.map((attribute, index) => RenderColumn(attribute, index))}
 				</div>
 				<div className="text-black dark:text-white text-2xl font-bold p-2 rounded-md">
 					<h1>Bisnis</h1>
 				</div>
-				<div className="grid sm:grid-cols-6 gap-2 bg-white dark:bg-gray-800 shadow-sm sm:rounded-t-lg p-4">
+				<div className="grid sm:grid-cols-2 gap-2 bg-white dark:bg-slate-800 shadow-sm sm:rounded-t-lg p-4">
 					{nonFileBisnis.map((attribute, index) =>
 						RenderColumn(attribute, index)
 					)}
 				</div>
-				<div className="grid sm:grid-cols-4 gap-2 bg-white dark:bg-gray-800 shadow-sm sm:rounded-b-lg pb-4 px-4">
+				<div className="text-black dark:text-white text-2xl font-bold p-2 rounded-md">
+					<h1>Foto</h1>
+				</div>
+				<div className="grid sm:grid-cols-4 gap-2 p-4">
 					{FileBisnis.map((attribute, index) => RenderColumn(attribute, index))}
 				</div>
 			</div>

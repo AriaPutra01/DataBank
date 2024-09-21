@@ -15,7 +15,7 @@ export default function Pagination({ data }) {
                         }
                         ${index === 0 && "rounded-l-md"}
                         ${index === links.length - 1 && "rounded-r-md"}
-                        flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white transition-all`}
+                        flex items-center justify-center text-sm py-2 px-3 leading-tight text-slate-500 border border-slate-300 hover:bg-slate-100 hover:text-slate-700 bg-slate-100 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-400 dark:hover:bg-slate-700 dark:hover:text-white transition-all`}
                     >
                         <div
                             dangerouslySetInnerHTML={{
