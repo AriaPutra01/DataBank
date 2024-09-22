@@ -45,10 +45,12 @@ class RekeningController extends Controller
       ['data' => 'coorporate_id', 'type' => 'text', 'header' => 'Coorporate ID'],
       ['data' => 'coorporate', 'type' => 'text', 'header' => 'Coorporate'],
       ['data' => 'id_coop', 'type' => 'text', 'header' => 'ID'],
-      ['data' => 'foto_ktp', 'type' => 'file', 'header' => 'Foto KTP'],
-      ['data' => 'foto_kartu_atm', 'type' => 'file', 'header' => 'Foto Kartu ATM'],
-      ['data' => 'foto_token', 'type' => 'file', 'header' => 'Foto Token'],
-      ['data' => 'foto_buku_tabungan', 'type' => 'file', 'header' => 'Foto Buku Tabungan']
+    ],
+    'Foto' => [
+      ['data' => 'ktp', 'type' => 'file', 'header' => 'Foto KTP', 'path' => 'foto_ktp'],
+      ['data' => 'kartu_atm', 'type' => 'file', 'header' => 'Foto Kartu ATM', 'path' => 'foto_kartu_atm'],
+      ['data' => 'token', 'type' => 'file', 'header' => 'Foto Token', 'path' => 'foto_token'],
+      ['data' => 'buku_tabungan', 'type' => 'file', 'header' => 'Foto Buku Tabungan', 'path' => 'foto_buku-tabungan'],
     ],
   ];
 
@@ -103,26 +105,31 @@ class RekeningController extends Controller
       'coorporate' => 'nullable|string|max:255',
       'ID' => 'nullable|string|max:255',
       'masa_berlaku_atm' => 'nullable|date',
-      'foto_ktp' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
-      'foto_kartu_atm' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
-      'foto_kartu_kk' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
-      'foto_buku_tabungan' => 'nullable|image|mimes:jpeg,jpg,png|max:2048'
+      'ktp' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
+      'kartu_atm' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
+      'kartu_kk' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
+      'buku_tabungan' => 'nullable|image|mimes:jpeg,jpg,png|max:2048'
     ]);
 
-    if ($request->hasFile('foto_ktp')) {
-      $data['foto_ktp'] = $request->file('foto_ktp')->store("foto", 'public');
+    $ktp = $data['ktp'] ?? null;
+    $kartu_atm = $data['kartu_atm'] ?? null;
+    $kartu_kk = $data['kartu_kk'] ?? null;
+    $buku_tabungan = $data['buku_tabungan'] ?? null;
+
+    if ($ktp) {
+      $data['foto_ktp'] = $ktp->storeAs("rekening", $ktp->hashName(), 'public');
     }
 
-    if ($request->hasFile('foto_kartu_atm')) {
-      $data['foto_kartu_atm'] = $request->file('foto_kartu_atm')->store("foto", 'public');
+    if ($kartu_atm) {
+      $data['foto_kartu_atm'] = $kartu_atm->storeAs("rekening", $kartu_atm->hashName(), 'public');
     }
 
-    if ($request->hasFile('foto_kartu_kk')) {
-      $data['foto_kartu_kk'] = $request->file('foto_kartu_kk')->store("foto", 'public');
+    if ($kartu_kk) {
+      $data['foto_kartu_kk'] = $kartu_kk->storeAs("rekening", $kartu_kk->hashName(), 'public');
     }
 
-    if ($request->hasFile('foto_buku_tabungan')) {
-      $data['foto_buku_tabungan'] = $request->file('foto_buku_tabungan')->store("foto", 'public');
+    if ($buku_tabungan) {
+      $data['foto_buku_tabungan'] = $buku_tabungan->storeAs("rekening", $buku_tabungan->hashName(), 'public');
     }
 
     Rekening::create($data);
@@ -180,35 +187,43 @@ class RekeningController extends Controller
       'coorporate' => 'nullable|string|max:255',
       'ID' => 'nullable|string|max:255',
       'masa_berlaku_atm' => 'nullable|date',
-      'foto_ktp' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
-      'foto_kartu_atm' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
-      'foto_kartu_kk' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
-      'foto_buku_tabungan' => 'nullable|image|mimes:jpeg,jpg,png|max:2048'
+      'ktp' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
+      'kartu_atm' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
+      'kartu_kk' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
+      'buku_tabungan' => 'nullable|image|mimes:jpeg,jpg,png|max:2048'
     ]);
 
-    if ($request->hasFile('foto_ktp')) {
+    $ktp = $data['ktp'] ?? null;
+    $kartu_atm = $data['kartu_atm'] ?? null;
+    $kartu_kk = $data['kartu_kk'] ?? null;
+    $buku_tabungan = $data['buku_tabungan'] ?? null;
+
+    if ($ktp) {
       if ($rekening->foto_ktp) {
         Storage::disk('public')->delete($rekening->foto_ktp);
       }
-      $data['foto_ktp'] = $request->file('foto_ktp')->store("foto", 'public');
+      $data['foto_ktp'] = $ktp->storeAs("rekening", $ktp->hashName(), 'public');
     }
-    if ($request->hasFile('foto_kartu_atm')) {
+
+    if ($kartu_atm) {
       if ($rekening->foto_kartu_atm) {
         Storage::disk('public')->delete($rekening->foto_kartu_atm);
       }
-      $data['foto_kartu_atm'] = $request->file('foto_kartu_atm')->store("foto", 'public');
+      $data['foto_kartu_atm'] = $kartu_atm->storeAs("rekening", $kartu_atm->hashName(), 'public');
     }
-    if ($request->hasFile('foto_kartu_kk')) {
+
+    if ($kartu_kk) {
       if ($rekening->foto_kartu_kk) {
         Storage::disk('public')->delete($rekening->foto_kartu_kk);
       }
-      $data['foto_kartu_kk'] = $request->file('foto_kartu_kk')->store("foto", 'public');
+      $data['foto_kartu_kk'] = $kartu_kk->storeAs("rekening", $kartu_kk->hashName(), 'public');
     }
-    if ($request->hasFile('foto_buku_tabungan')) {
+
+    if ($buku_tabungan) {
       if ($rekening->foto_buku_tabungan) {
         Storage::disk('public')->delete($rekening->foto_buku_tabungan);
       }
-      $data['foto_buku_tabungan'] = $request->file('foto_buku_tabungan')->store("foto", 'public');
+      $data['foto_buku_tabungan'] = $buku_tabungan->storeAs("rekening", $buku_tabungan->hashName(), 'public');
     }
 
     $rekening->update($data);
@@ -220,20 +235,23 @@ class RekeningController extends Controller
   {
     $nama = $rekening->nama;
 
+    $rekening->delete();
+
     if ($rekening->foto_ktp) {
       Storage::disk('public')->delete($rekening->foto_ktp);
     }
+
     if ($rekening->foto_kartu_atm) {
       Storage::disk('public')->delete($rekening->foto_kartu_atm);
     }
+
     if ($rekening->foto_kartu_kk) {
       Storage::disk('public')->delete($rekening->foto_kartu_kk);
     }
+
     if ($rekening->foto_buku_tabungan) {
       Storage::disk('public')->delete($rekening->foto_buku_tabungan);
     }
-
-    $rekening->delete();
 
     return redirect()->route('rekening.index')->with('info', "Data \"$nama\" berhasil dihapus!");
   }

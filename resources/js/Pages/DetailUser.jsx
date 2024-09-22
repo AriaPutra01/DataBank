@@ -9,8 +9,7 @@ export default function DetailUser({ details, attributes }) {
 	const DataRekening = attributes.DataRekening;
 	const MyBCA = attributes.MyBCA;
 	const Bisnis = attributes.Bisnis;
-	const nonFileBisnis = Bisnis.filter((data) => data.type !== "file");
-	const FileBisnis = Bisnis.filter((data) => data.type === "file");
+	const Foto = attributes.Foto;
 
 	const RenderColumn = (attribute, index) => {
 		switch (attribute.type) {
@@ -20,13 +19,13 @@ export default function DetailUser({ details, attributes }) {
 						key={index}
 						className="col-span-2 relative text-black dark:text-slate-100 ">
 						<span className="absolute rounded-md p-2 bg-slate-50 dark:bg-slate-700">
-							{details[attribute.data]
+							{details[attribute.path]
 								? attribute.header
 								: "Tidak ada" + " " + attribute.header}
 						</span>
 						<img
 							key={index}
-							src={`/storage/${details[attribute.data]}`}
+							src={`/storage/${details[attribute.path]}`}
 							className="sm:w-full rounded-md p-2 bg-slate-50 dark:bg-slate-700"
 							alt={attribute.header}
 						/>
@@ -45,7 +44,18 @@ export default function DetailUser({ details, attributes }) {
 						</div>
 					</div>
 				);
-			default:
+			case "text":
+				return (
+					<div
+						key={index}
+						className={`col-span-3 bg-slate-50 dark:bg-slate-700 p-2 text-black dark:text-slate-100 grid grid-cols-4 gap-10 rounded-md `}>
+						<span className="col-span-1">{attribute.header}</span>
+						<div className="col-span-2 overflow-auto font-bold ms-2">
+							{details[attribute.data]}
+						</div>
+					</div>
+				);
+			case "date":
 				return (
 					<div
 						key={index}
@@ -95,15 +105,13 @@ export default function DetailUser({ details, attributes }) {
 					<h1>Bisnis</h1>
 				</div>
 				<div className="grid sm:grid-cols-2 gap-2 bg-white dark:bg-slate-800 shadow-sm sm:rounded-t-lg p-4">
-					{nonFileBisnis.map((attribute, index) =>
-						RenderColumn(attribute, index)
-					)}
+					{Bisnis.map((attribute, index) => RenderColumn(attribute, index))}
 				</div>
 				<div className="text-black dark:text-white text-2xl font-bold p-2 rounded-md">
 					<h1>Foto</h1>
 				</div>
 				<div className="grid sm:grid-cols-4 gap-2 p-4">
-					{FileBisnis.map((attribute, index) => RenderColumn(attribute, index))}
+					{Foto.map((attribute, index) => RenderColumn(attribute, index))}
 				</div>
 			</div>
 		</Authenticated>

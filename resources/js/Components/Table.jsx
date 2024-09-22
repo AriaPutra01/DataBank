@@ -53,7 +53,7 @@ export default function Table({
 					</div>
 				</div>
 			</header>
-			<main className="overflow-auto">
+			<main className="overflow-auto scrollbar-thin scrollbar-thumb-slate-200 scrollbar-track-slate-50 dark:scrollbar-thumb-slate-600 dark:scrollbar-track-slate-400">
 				{filteredData.length === 0 ? (
 					<div className="text-center bg-red-400 dark:bg-red-600 h-[3rem] sm:h-[4 rem] my-4 mx-2 sm:mx-8 flex justify-center items-center font-bold text-lg rounded-lg ring-2 ring-red-500 dark:ring-red-400 text-slate-50 dark:text-slate-100">
 						Tidak ada data !
@@ -80,7 +80,7 @@ export default function Table({
 									key={index}
 									className="relative border-b-2 text-slate-800 dark:text-slate-200 dark:border-slate-700">
 									{attributes.map((attribute, attrIndex) => (
-										<td key={attrIndex} className="px-4 py-3 whitespace-nowrap">
+										<td key={attrIndex} className="p-[1rem] whitespace-nowrap">
 											{(() => {
 												switch (attribute.type) {
 													case "date":
@@ -93,7 +93,9 @@ export default function Table({
 															: "-";
 													default:
 														return (
-															<div className="max-w-[10rem] overflow-hidden overflow-ellipsis"p>
+															<div
+																className="max-w-[10rem] overflow-hidden overflow-ellipsis"
+																p>
 																{field[attribute.data] ||
 																	(attribute.cell && attribute.cell(field)) ||
 																	"-"}

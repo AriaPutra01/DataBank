@@ -1,4 +1,4 @@
-import { useForm, Head, Link, router } from "@inertiajs/react";
+import { useForm, Head, Link } from "@inertiajs/react";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
@@ -8,13 +8,15 @@ import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
 export default function EditUser({ details, attributes }) {
-	const { data, setData, errors, processing, reset } = useForm(details);
+	const { data, setData, post, errors, processing, reset } = useForm({
+		...details,
+		_method: "PUT",
+	});
+
 	const DataRekening = attributes.DataRekening;
 	const MyBCA = attributes.MyBCA;
 	const Bisnis = attributes.Bisnis;
-	const nonFileBisnis = Bisnis.filter((data) => data.type !== "file");
-	const FileBisnis = Bisnis.filter((data) => data.type === "file");
-
+	const Foto = attributes.Foto;
 	const handleChange = (e) => {
 		const { name, type } = e.target;
 		const value = type === "file" ? e.target.files[0] : e.target.value;
@@ -36,9 +38,7 @@ export default function EditUser({ details, attributes }) {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		router.post(route("rekening.update", details.id), {
-			...data,
-			_method: "put",
+		post(route("rekening.update", details.id), {
 			forceFormData: true,
 			onSuccess: () => {
 				reset();
@@ -70,25 +70,27 @@ export default function EditUser({ details, attributes }) {
 			case "file":
 				return (
 					<div key={index} className={`relative mb-4 col-span-3 sm:col-span-2`}>
-						<InputLabel
-							className={`${
-								!data[attribute.data] && "dark:bg-transparent"
-							} absolute top-0 p-2 w-fit border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 dark:text-slate-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm`}
-							htmlFor={attribute.data}
-							value={attribute.header}
-						/>
-						{data[`${attribute.data}_preview`] && (
+						{data[attribute.path] && (
+							<InputLabel
+								className={`${
+									(data[attribute.path] || data[`${attribute.data}_preview`]) &&
+									"absolute max-w-fit"
+								}  p-2 border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 dark:text-slate-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm`}
+								htmlFor={attribute.data}
+								value={attribute.header}
+							/>
+						)}
+						{data[`${attribute.data}_preview`] ? (
 							<img
 								src={data[`${attribute.data}_preview`]}
 								alt="Preview"
-								className="object-cover sm:w-full p-2 bg-slate-50 dark:bg-slate-800 mt-[2rem]"
+								className="object-cover sm:w-full rounded-md p-2 bg-white dark:bg-slate-800"
 							/>
-						)}
-						{data[attribute.data] && (
+						) : (
 							<img
-								src={`/storage/${data[attribute.data]}`}
-								alt={data[attribute.data].name}
-								className="object-cover sm:w-full rounded-md p-2 bg-slate-50 dark:bg-slate-800"
+								src={`/storage/${data[attribute.path]}`}
+								alt={attribute.header}
+								className="object-cover sm:w-full rounded-md p-2 bg-white dark:bg-slate-800"
 							/>
 						)}
 						<TextInput
@@ -96,14 +98,27 @@ export default function EditUser({ details, attributes }) {
 							type="file"
 							name={attribute.data}
 							onChange={handleChange}
-							className={`${
-								!data[attribute.data] && "mt-[2.5rem]"
-							} bg-slate-50 dark:bg-slate-800`}
+							className="mt-[.5rem] bg-white dark:bg-slate-800"
 						/>
 						<InputError message={errors[attribute.data]} className="mt-2" />
 					</div>
 				);
-			default:
+			case "text":
+				return (
+					<div key={index} className="mb-4 col-span-1">
+						<InputLabel htmlFor={attribute.data} value={attribute.header} />
+						<TextInput
+							id={attribute.data}
+							name={attribute.data}
+							type={attribute.type}
+							value={data[attribute.data]}
+							onChange={handleChange}
+							placeholder={attribute.header}
+						/>
+						<InputError message={errors[attribute.data]} className="mt-2" />
+					</div>
+				);
+			case "date":
 				return (
 					<div key={index} className="mb-4 col-span-1">
 						<InputLabel htmlFor={attribute.data} value={attribute.header} />
@@ -157,9 +172,7 @@ export default function EditUser({ details, attributes }) {
 							Bisnis
 						</h2>
 						<div className="sm:grid grid-cols-3 gap-4">
-							{nonFileBisnis.map((attribute, index) =>
-								renderInput(attribute, index)
-							)}
+							{Bisnis.map((attribute, index) => renderInput(attribute, index))}
 						</div>
 					</div>
 					<div className="p-6 text-slate-900 dark:text-slate-100 transition-all">
@@ -167,9 +180,7 @@ export default function EditUser({ details, attributes }) {
 							Foto
 						</h2>
 						<div className="sm:grid grid-cols-4 gap-4">
-							{FileBisnis.map((attribute, index) =>
-								renderInput(attribute, index)
-							)}
+							{Foto.map((attribute, index) => renderInput(attribute, index))}
 						</div>
 						<div className="flex pt-4 mt-4 gap-2 border-t-2 border-slate-600">
 							<PrimaryButton disabled={processing} type="submit">
